@@ -20,7 +20,7 @@ var roleBuilder = {
         else {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES, {
                     filter: (structure) => {
-                        return structure.structureType == STRUCTURE_EXTENSION;
+                        return structure.structureType == STRUCTURE_ROAD;
                     }
             });
             if(targets.length > 0) {

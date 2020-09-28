@@ -7,7 +7,7 @@ module.exports.loop = function () {
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     
-    if(Game.spawns['Spawn1'].store.getUsedCapacity(RESOURCE_ENERGY) >= 300) {
+    if(Game.spawns['Spawn1'].store.getUsedCapacity(RESOURCE_ENERGY) >= 200) {
         if(harvesters.length < 2) {
         var newName = 'Harvester' + Game.time;
         console.log('Spawning new harvester: ' + newName);
