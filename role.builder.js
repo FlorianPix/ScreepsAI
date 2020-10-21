@@ -25,7 +25,28 @@ var roleBuilder = {
                 }
             }
             else{
-                creep.moveTo(Game.spawns['Spawn1'].pos.x - 3, Game.spawns['Spawn1'].pos.y, {visualizePathStyle: {stroke: '#ffffff'}});
+                var targets = creep.room.find(FIND_STRUCTURES, {
+                    filter: (s) => s.hits < s.hitsMax && s.hits < 10000 
+                });
+                if(targets.length > 0) {
+                    if(creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                    }
+                }
+                else{
+                    // in case there are no construction sites and there is nothing to repair: be a harvester
+                    var targets = creep.room.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_TOWER) &&
+                            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+                    }
+                    });
+                    if(targets.length > 0) {
+                        if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                            creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                        }
+                    }
+                }
             }
         }
 	}
